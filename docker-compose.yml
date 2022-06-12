@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   redis:
-    image: 'redis:3.2.11'
+    image: redis:7
     restart: always
     hostname: redis
     networks:
@@ -30,7 +30,7 @@ services:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3
     restart: always
     container_name: rabbitmq
     hostname: rabbitmq
