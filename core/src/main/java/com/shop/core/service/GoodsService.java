@@ -2,8 +2,11 @@ package com.shop.core.service;
 
 import com.shop.core.dto.GoodsVO;
 import com.shop.core.entity.Goods;
+import com.shop.core.rabbitmq.Exchange;
+import com.shop.core.rabbitmq.message.GoodsChangeMsg;
 import com.shop.core.repository.GoodsRepo;
 import com.shop.framework.rabbitmq.MessageSender;
+import com.shop.framework.rabbitmq.MqMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +46,18 @@ public class GoodsService {
 
         goodsSkuService.add(goodsVO.getSkuList(), goods);
 
-        return null;
+//        Send message to RabbitMQ
+
+        GoodsChangeMsg goodsChangeMsg = GoodsChangeMsg.builder()
+                .goodsId(goods.getId())
+                .operationType(GoodsChangeMsg.ADD_OPERATION)
+                .build();
+
+        MqMessage mqMessage = new MqMessage(Exchange.GOODS_CHANGE, Exchange.GOODS_CHANGE + "_ROUTING", goodsChangeMsg);
+
+        messageSender.send(mqMessage);
+
+        return goods;
     }
 
 }
