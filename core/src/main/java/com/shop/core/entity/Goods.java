@@ -1,10 +1,7 @@
 package com.shop.core.entity;
 
 import com.shop.core.dto.GoodsVO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Goods {
 
     @Id

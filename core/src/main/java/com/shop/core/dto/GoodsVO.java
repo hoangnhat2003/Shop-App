@@ -27,8 +27,6 @@ public class GoodsVO {
 
     private Integer enableQuantity;
 
-    private List<GoodsSkuVO> skuList;
-
     private Integer commentNum;
 
 }
