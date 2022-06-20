@@ -19,7 +19,6 @@
 		<module>framework</module>
 		<module>core</module>
 		<module>consumer</module>
-
 	</modules>
 	<packaging>pom</packaging>
 	<name>shop</name>
