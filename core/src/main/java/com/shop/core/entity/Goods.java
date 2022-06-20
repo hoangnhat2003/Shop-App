@@ -26,6 +26,8 @@ public class Goods {
     @Column(name = "brand_id")
     private Integer brandId;
 
+    private String brandName;
+
     @Column(name = "category_id")
     private Integer categoryId;
 

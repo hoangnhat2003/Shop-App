@@ -2,11 +2,11 @@ package com.shop.core.searchgoods.service;
 
 import com.shop.core.entity.Goods;
 import com.shop.core.searchgoods.model.ElasticGoods;
+import com.shop.framework.elasticsearch.ElasticsearchConfig;
 import com.sun.istack.NotNull;
 import lombok.extern.log4j.Log4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
@@ -15,11 +15,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Log4j
-public class InitIndex {
+public class InitIndexService {
 
-    @Value("${rabbitmq.queue}")
-    private String queueName;
-
+    @Autowired
+    private ElasticsearchConfig esConfig;
     @Autowired
     private ElasticsearchOperations elasticsearchOperations;
 
@@ -34,6 +33,7 @@ public class InitIndex {
                 .goodsName(goods.getGoodsName())
                 .brandId(goods.getBrandId())
                 .categoryId(goods.getBrandId())
+                .brandName(goods.getBrandName())
                 .price(goods.getPrice())
                 .commentNum(goods.getCommentNum())
                 .weight(goods.getWeight())
@@ -50,7 +50,7 @@ public class InitIndex {
                 .withId(documentId)
                 .withObject(elasticGoods)
                 .build();
-        elasticsearchOperations.index(indexQuery, IndexCoordinates.of(queueName));
+        elasticsearchOperations.index(indexQuery, IndexCoordinates.of(esConfig.getIndex()));
     }
 
 }
