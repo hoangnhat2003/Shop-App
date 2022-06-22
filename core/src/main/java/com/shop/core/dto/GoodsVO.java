@@ -1,5 +1,6 @@
 package com.shop.core.dto;
 
+import com.shop.core.constraint.annotation.GoodsWeight;
 import lombok.Data;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class GoodsVO {
 
     private Double price;
 
+    @GoodsWeight
     private Double weight;
 
     private Integer quantity;

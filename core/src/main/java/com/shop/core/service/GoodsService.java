@@ -115,7 +115,7 @@ public class GoodsService {
                     redisCache.remove(CachePrefix.GOODS.getPrefix() + goodsId);
                 }
 
-                redisCache.put(CachePrefix.GOODS.getPrefix() + goodsUpdated.getId(), goodsUpdated);
+                redisCache.put(CachePrefix.GOODS.getPrefix() + goodsUpdated.getId(), JsonParser.toJson(goodsUpdated));
 
                 return goodsUpdated;
 
@@ -134,7 +134,7 @@ public class GoodsService {
 
         Goods goodsUpdated = goodsRepo.save(goods);
 
-        redisCache.put(CachePrefix.GOODS.getPrefix() + goodsUpdated.getId(), goodsUpdated);
+        redisCache.put(CachePrefix.GOODS.getPrefix() + goodsUpdated.getId(), JsonParser.toJson(goodsUpdated));
 
         return goodsUpdated;
     }
